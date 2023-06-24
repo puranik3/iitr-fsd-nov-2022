@@ -1,0 +1,20 @@
+[
+    {
+        "name": "John",
+        "age": 32,
+        "permanent": true,
+        "spouse": null,
+        "emails": [
+            "john@xyz.com",
+            "john@gmail.com"
+        ]
+    },
+    {
+        "name": "Jane",
+        "age": 28,
+        "emails": [
+            "jane@xyz.com",
+            "jane@gmail.com"
+        ]
+    }
+]

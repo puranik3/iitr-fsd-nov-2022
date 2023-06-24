@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <!-- <style>
+            p {
+
+            }
+        </style> -->
+    </head>
+    <body>
+        <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto culpa, asperiores dolor reprehenderit ab quos impedit, vitae tempore eligendi nulla officiis! Illum, voluptas deserunt quis impedit dolor perferendis porro odit?
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero, nisi? Consequatur laborum numquam rerum facilis aliquam voluptate, repellat eum dolorem aliquid, tempore earum officia cum nobis est repellendus neque odio.
+        </p>
+        <button id="btn-click-me">Click me</button>
+
+        <script>
+            // first DOM node (object representing an HTML element)
+            var firstPara = document.querySelector( 'p' );
+            console.dir( firstPara ); // dir() shows it as an object
+
+            firstPara.innerText = 'First para (new content)';
+            firstPara.style.color = 'red';
+
+            const paras = document.querySelectorAll( 'p' );
+            console.log( paras );
+            console.log( paras[0] );
+            console.log( paras[1] );
+
+            const btn = document.querySelector( '#btn-click-me' );
+            btn.addEventListener('click', function() {
+                alert( 'Hey, you clicked me' );
+            });
+            btn.addEventListener('click', function() {
+                alert( 'Hey, you clicked me' );
+            });
+        </script>
+    </body>
+</html>
