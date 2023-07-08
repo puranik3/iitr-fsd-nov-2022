@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MUSIC PLAYER</title>
+        <link rel="stylesheet" href="player.css">
+        <!-- https://fontawesome.com/ -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
+    </head>
+    <body>
+        <div class="player">
+            <div class="details">
+                <div class="now-playing now-playing-highlight">
+                    PLAYING x OF y
+                </div>
+                <div class="track-art"></div>
+                <div class="track-name"></div>
+                <div class="track-artist"></div>
+            </div>
+
+            <div class="buttons">
+                <div class="prev-track">
+                    <i class="fa fa-step-backward fa-2x"></i>
+                </div>
+                <div class="playpause-track">
+                    <i class="fa fa-play-circle fa-5x" id="playpause-button"></i>
+                </div>
+                <div class="next-track">
+                    <i class="fa fa-step-forward fa-2x"></i>
+                </div>
+            </div>
+
+            <div class="slider_container">
+                <div class="current-time">00:00</div>
+                <input
+                    type="range"
+                    class="seek_slider"
+                    min="0"
+                    max="100"
+                    value="0"
+                />
+                <div class="total-duration">00:00</div>
+            </div>
+            
+            <div class="slider_container">
+                <i class="fa fa-volume-down"></i>
+                <input
+                    type="range"
+                    class="volume_slider"
+                    min="0"
+                    max="100"
+                    value="100"
+                />
+                <i class="fa fa-volume-up"></i>
+            </div>
+        </div>
+
+        <script src="index.js"></script>
+    </body>
+</html>

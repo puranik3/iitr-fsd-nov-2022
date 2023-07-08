@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <!-- List of browser events: https://developer.mozilla.org/en-US/docs/Web/Events -->
+        <!-- inline event handling -->
+        <button onclick="alert( 'You clicked the button [1]' );" id="btn-1">Click me</button>
+        <button id="btn-2">Click me</button>
+
+        <script>
+            const button1 = document.querySelector( '#btn-1' );
+            const button2 = document.querySelector( '#btn-2' );
+            
+            button1.onclick = function( event ) {
+                alert( 'You clicked the button [2]' );
+            };
+
+            button1.onclick = function( event ) {
+                alert( 'You clicked the button [3]' );
+            };
+
+            // argument #1 -> name of the event (As a string)
+            // argument #2 -> the function to execute when the event occurs (event handler / event listener)
+            button1.addEventListener( 'click', function( evt ) {
+                alert( 'You clicked the button [4]' );
+            });
+
+            function onClick( evt ) {
+                console.log( evt ); // the "Event" object
+                console.log( evt.target ); // the DOM node on which the event occured
+                alert( 'You clicked the button [5]' );
+
+                // Check the function context ("this") as well
+            }
+            
+            button1.addEventListener( 'click', onClick );
+            button2.addEventListener( 'click', onClick );
+        </script>
+    </body>
+</html>

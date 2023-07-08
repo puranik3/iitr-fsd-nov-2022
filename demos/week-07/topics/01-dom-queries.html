@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia et facere sunt, ad obcaecati doloremque sit odit quod eum similique impedit perspiciatis officiis qui voluptates vel itaque quam rerum cupiditate?
+        </p>
+        <p class="description">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed temporibus quisquam nulla molestias vel dolores aspernatur provident? Amet, natus cupiditate? Aperiam nostrum dicta nulla id tenetur aliquid dolorem vitae esse.
+        </p>
+        <div class="description">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis, fugit? Alias, deserunt. Sit tempora, corrupti quis ipsum inventore quia officiis doloribus assumenda aliquid et. Alias incidunt aspernatur laudantium asperiores autem.
+            <a href="#" id="link-1">Link within div</a>
+            <a href="#">Link within div (another)</a>
+        </div>
+
+        <a href="#">Link outside div</a>
+
+        <script>
+            // a list of DOM nodes which are paragraphs
+            const paras = document.querySelectorAll( 'p' );
+            
+            // DOM nodes
+            console.dir( paras[0] );
+            console.dir( paras[1] );
+
+            // node list (like an array)
+            const descriptionsEls = document.querySelectorAll( '.description' );
+            console.dir( descriptionsEls[0] );
+            console.dir( descriptionsEls[1] );
+
+            // not an array - it is a DOM node itself
+            const firstDescriptionEl = document.querySelector( '.description' );
+            console.dir( firstDescriptionEl );
+
+            const bodyEl = document.querySelector( 'body' );
+            console.log( bodyEl.children ); // p, p, div, script
+
+            // search for all links within div
+            const linksWithinDiv = descriptionsEls[1].querySelectorAll( 'a' );
+            console.log( linksWithinDiv );
+
+            const link1_1 = document.querySelector( '#link-1' );
+            const link1_2 = document.getElementById( 'link-1' );
+
+            console.log( link1_1, link1_2 );
+
+            // getElementsByClassName(), etc.
+        </script>
+    </body>
+</html>
