@@ -54,6 +54,10 @@ export default class Game {
         this.running = false;
     }
 
+    pauseOrResume() {
+        this.running = !this.running;
+    }
+
     // class methods also support arrow function syntax (the "this" will not be lost)
     loop = ( time ) => {
         requestAnimationFrame( this.loop );
@@ -134,6 +138,9 @@ export default class Game {
                 break;
             case "ArrowRight":
                 this.snake.setDirection(Direction.RIGHT);
+                break;
+            case " ":
+                this.pauseOrResume();
                 break;
         }
     }
