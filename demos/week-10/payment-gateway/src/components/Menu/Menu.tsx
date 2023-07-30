@@ -1,5 +1,8 @@
 // useState is a "hook" - can be used only in function components
 import { useState, MouseEvent } from 'react';
+import CreditDebitCard from '../CreditDebitCard/CreditDebitCard';
+import NetBanking from '../NetBanking/NetBanking';
+import UPI from '../UPI/UPI';
 import PaymentOptions from '../../models/PaymentOptions';
 
 import './Menu.css';
@@ -37,7 +40,11 @@ const Menu = () => {
                     ))
                 }
             </div>
-            <div className="payment-details"></div>
+            <div className="payment-details">
+                {option === PaymentOptions.CARD && <CreditDebitCard />}
+                {option === PaymentOptions.NET_BANKING && <NetBanking />}
+                {option === PaymentOptions.UPI && <UPI />}
+            </div>
         </div>
     )
 };
