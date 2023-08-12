@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.development.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.development.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.22.10/babel.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+
+        <script type="text/babel">
+            const getWorkshops = async ( _page ) => {
+                const response = await axios.get(`http://localhost:8001/workshops`, {
+                    params: {
+                        _page // _page: _page
+                    } 
+                });
+                // success!
+                return response.data;
+            };
+
+            class WorkshopsList extends React.Component {
+                state = {
+                    workshops: [],
+                    error: null,
+                    loading: false,
+                    _page: 1
+                };
+
+                async fetchWorkshops() {
+                    this.setState({
+                        loading: true
+                    });
+
+                    try {
+                        const data = await getWorkshops(this.state._page);
+                        this.setState({
+                            loading: false,
+                            workshops: data
+                        });
+                    } catch( error ) {
+                        // error :(
+                        console.log( error );
+                        this.setState({
+                            loading: false,
+                            error, // error: error
+                        });
+                    }
+                }
+
+                // cdm - only once
+                // mounting phase
+                async componentDidMount() {
+                    this.fetchWorkshops();
+                }
+
+                // cdu - called multiple times - called whenever any state or prop updates
+                componentDidUpdate(prevProps, prevState) {
+                    console.log( 'state changed' )
+                    console.log( 'prevState = ', prevState );
+                    console.log( 'current state = ', this.state );
+
+                    if(prevState._page !== this.state._page) {
+                        this.fetchWorkshops();
+                    }
+                }
+
+                // cwun
+                componentWillUnmount() {
+                    console.log('Bye!');
+                }
+
+                next = () => {
+                    this.setState({
+                        _page: this.state._page + 1
+                    });
+                }
+                
+                previous = () => {
+                    if( this.state._page === 1 ) {
+                        return;
+                    }
+
+                    this.setState({
+                        _page: this.state._page - 1
+                    });
+                }
+
+                // mounting phase
+                // update phase
+                render() {
+                    const { workshops, error, loading, _page } = this.state;
+
+                    return (
+                        <div className="container my-4">
+                            <h1>List of Workshops</h1>
+                            <hr />
+                            <button className="btn btn-primary btn-sm me-2" onClick={this.previous}>Previous</button>
+                            <button className="btn btn-primary btn-sm" onClick={this.next}>Next</button>
+                            <p>
+                                You are on page {_page}
+                            </p>
+                            {
+                                loading && (
+                                    <div className="d-flex justify-content-center">
+                                        <div className="spinner-border" role="status">
+                                            <span className="visually-hidden">Loading...</span>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                            {
+                                loading === false && error !== null && (
+                                    <div className="alert alert-danger" role="alert">
+                                        {error.message}
+                                    </div>
+                                )
+                            }
+                            {
+                                loading === false && error === null && ( 
+                                    workshops.map(workshop => <div key={workshop.id}>{workshop.name}</div>)
+                                )
+                            }
+                        </div>
+                    )
+                }
+            }
+
+            const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
+            root.render( <WorkshopsList /> );
+
+            // uncomment and check cwun
+            // setTimeout(() => {
+            //     root.render( <div>New UI</div> );
+            // }, 10000)
+        </script>
+    </body>
+</html>

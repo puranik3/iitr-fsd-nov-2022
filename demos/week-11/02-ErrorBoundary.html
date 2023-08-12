@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.development.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.development.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.22.10/babel.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+
+        <script type="text/babel">
+            class ErrorBoundary extends React.Component {
+                state = {
+                    error: null
+                };
+
+                componentDidCatch(error, info) {
+                    this.setState({
+                        error // error: error
+                    });   
+                }
+
+                render() {
+                    const { error } = this.state;
+
+                    return error ? <div>{error.message}</div> : this.props.children;
+                }
+            }
+
+            const IThrowAnError = ({ throwError }) => {
+                if(throwError) {
+                    throw new Error('Some error occured');
+                }
+
+                return (
+                    <div>I am a crazy component that can throw an error</div>
+                );
+            };
+            
+            const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
+            root.render( 
+                <>
+                    <ErrorBoundary>
+                        <IThrowAnError throwError={true} />
+                    </ErrorBoundary>
+                    <ErrorBoundary>
+                        <IThrowAnError throwError={false} />
+                    </ErrorBoundary>
+                </>
+            );
+        </script>
+    </body>
+</html>
