@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.development.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.development.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.22.10/babel.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+
+        <script type="text/babel">
+            const PanelTitle = React.memo(({ title, toggle }) => {
+                console.log( 'PanelTitle rendered' );
+
+                return (
+                    <div className="bg bg-dark text-white p-3" onClick={toggle}>{title}</div>
+                );
+            });
+
+            const PanelBody = React.memo(({ children, show }) => {
+                console.log( 'PanelBody rendered' );
+
+                return show === true ? (
+                    <div className="p-3">{children}</div>
+                ) : null
+            });
+
+            const Panel = ({ title, children }) => {
+                console.log( 'Panel rendered' );
+
+                const [show, setShow] = React.useState(true);
+
+                // inner functions are local variables - they are re-created every time the outer function is called
+                const toggle = React.useCallback(() => {
+                    setShow(s => !s);
+                }, [setShow]);
+
+                return (
+                    <div className="border border-dark">
+                        <PanelTitle title={title} toggle={toggle} />
+                        <PanelBody show={show}>{children}</PanelBody>
+                    </div>
+                );
+            };
+
+            const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
+            root.render( 
+                <div className="container my-4">
+                    <Panel title="What is React?">
+                        <p>It is a frontend library created by Meta</p>
+                        <p>It helps create the view in the frontend app</p>
+                    </Panel>
+                </div>
+            );
+        </script>
+    </body>
+</html>

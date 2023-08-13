@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css">
+        <style>
+            body {
+                margin: 0;
+            }
+
+            .app {
+                display: flex;
+                height: 100vh;
+            }
+
+            .sidebar-wrapper {
+                flex-basis: 0;
+                flex-grow: 1;
+                background-color: #eee;
+            }
+            
+            .header-and-content {
+                flex-basis: 0;
+                flex-grow: 3;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.development.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.development.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.22.10/babel.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+
+        <script type="text/babel">
+            const documents = {
+                'page_1': 'I am page 1 content',
+                'page_2': 'I am page 2 content',
+                'page_3': 'I am page 3 content',
+                'page_4': 'I am page 4 content',
+            };
+
+            const pageIds = Object.keys( documents );
+
+            const App = () => {
+                const [document, setDocument] = React.useState( 'page_1' );
+
+                return (
+                    <div className="app">
+                        <SidebarWrapper setDocument={setDocument} />
+                        <HeaderAndContent document={document} />
+                    </div>
+                );
+            };
+
+            const SidebarWrapper = ( { setDocument } ) => {
+                return (
+                    <div className="sidebar-wrapper p-3">
+                        <Search />
+                        <Sidebar setDocument={setDocument} />
+                    </div>
+                );
+            };
+
+            const Search = () => {
+                return <input type="search" />
+            };
+            
+            const Sidebar = ( { setDocument } ) => {
+                return (
+                    <>
+                        {pageIds.map(pageId => (
+                            <div
+                                className="text-decoration-underline p-2"
+                                style={{ cursor: 'pointer' }}
+                                onClick={() => setDocument( pageId )}
+                                key={pageId}
+                            >
+                                {pageId}
+                            </div>
+                        ))}
+                    </>
+                );
+            };
+
+            const HeaderAndContent = ({ document }) => {
+                return (
+                    <div className="header-and-content p-3">
+                        <Header />
+                        <Content document={document} />
+                    </div>
+                );
+            };
+
+            const Header = () => {
+                return <h1>ABC Consulting</h1>;
+            };
+
+            // Note: document is really the pageId (example - 'page_1')
+            const Content = ({ document }) => {
+                return (
+                    <div>
+                        {documents[document]}
+                    </div>
+                );
+            };
+
+            const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
+            root.render( <App /> );
+        </script>
+    </body>
+</html>
