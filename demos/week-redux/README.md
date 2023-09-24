@@ -1,0 +1,12 @@
+# Redux
+- JS library
+- Application State management library
+    - share data between lots of components in your app
+        - examples
+            - shopping cart
+            - theme
+            - user and user preferences
+- Redux stores shared application state and avoids the problem of "props drilling"
+- Architecture implemented by Redux is the "flux architecture" which was recommended by React team
+- Building blocks of redux
+    - Store, state, action, action creators, reducer, middleware
